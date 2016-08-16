@@ -1,0 +1,149 @@
+netcdf NODC_timeseries_orthogonal {
+dimensions:
+       time = < dim1 >;//.................................................... REQUIRED - Number of time steps in the time series
+       timeSeries = <dim2>; //............................................... REQUIRED - Number of time series (=1 for single time series or can be removed)
+variables:
+        int timeSeries(timeSeries); //....................................... RECOMMENDED - If using the attribute below: cf_role. Data type can be whatever is appropriate for the unique feature type.
+                timeSeries:long_name = "Unique identifier for each feature instance"; //................................ RECOMMENDED
+                timeSeries:cf_role = "timeseries_id"; //..................... RECOMMENDED
+        double time(time) ;//........................................ Depending on the precision used for the variable, the data type could be int or double instead of float.
+                time:long_name = "" ; //..................................... RECOMMENDED - Provide a descriptive, long name for this variable. 
+                time:standard_name = "time" ; //............................. REQUIRED    - Do not change
+                time:units = "seconds since 1970-01-01 00:00:00 0:00" ; //... REQUIRED    - Use approved CF convention with approved UDUNITS.
+                time:calendar = "julian" ; //................................ REQUIRED    - IF the calendar is not default calendar, which is "gregorian".
+                time:axis = "T" ; //......................................... REQUIRED    - Do not change.
+                time:ancillary_variables = "" ; //........................... RECOMMENDED - List other variables providing information about this variable.
+                time:comment = "" ; //....................................... RECOMMENDED - Add useful, additional information here.  
+        float lat(timeSeries) ;//....................................... Depending on the precision used for the variable, the data type could be int or double instead of float. 
+                lat:long_name = "" ; //...................................... RECOMMENDED - Provide a descriptive, long name for this variable.
+                lat:standard_name = "latitude" ; //.......................... REQUIRED    - Do not change.
+                lat:units = "degrees_north" ; //............................. REQUIRED    - CF recommends degrees_north, but at least must use UDUNITS.
+                lat:axis = "Y" ; //.......................................... REQUIRED    - Do not change.
+                lat:valid_min = 0.0f ; //.................................... RECOMMENDED - Replace with correct value.
+                lat:valid_max = 0.0f ; //.................................... RECOMMENDED - Replace with correct value.
+                lat:_FillValue = 0.0f;//..................................... REQUIRED  if there could be missing values in the data.
+                lat:ancillary_variables = "" ; //............................ RECOMMENDED - List other variables providing information about this variable.
+                lat:comment = "" ; //........................................ RECOMMENDED - Add useful, additional information here.
+       float lon(timeSeries) ; //........................................ Depending on the precision used for the variable, the data type could be int or double instead of float. 
+                lon:long_name = "" ; //...................................... RECOMMENDED
+                lon:standard_name = "longitude" ; //......................... REQUIRED    - This is fixed, do not change.
+                lon:units = "degrees_east" ; //.............................. REQUIRED    - CF recommends degrees_east, but at least use UDUNITS.
+                lon:axis = "X" ; //.......................................... REQUIRED    - Do not change.
+                lon:valid_min = 0.0f ; //.................................... RECOMMENDED - Replace this with correct value.
+                lon:valid_max = 0.0f ; //.................................... RECOMMENDED - Replace this with correct value.
+                lon:_FillValue = 0.0f;//..................................... REQUIRED  if there could be missing values in the data.    
+                lon:ancillary_variables = "" ; //............................ RECOMMENDED - List other variables providing information about this variable.
+                lon:comment = "" ; //........................................ RECOMMENDED - Add useful, additional information here.
+        float z(timeSeries) ;//........................................ Depending on the precision used for the variable, the data type could be int or double instead of float. Also the variable "z" could be substituted with a more descriptive name like "depth", "altitude", "pressure", etc.
+                z:long_name = "" ; //........................................ RECOMMENDED - Provide a descriptive, long name for this variable. 
+                z:standard_name = "" ; //.................................... REQUIRED    - Usually "depth" or "altitude" is used.
+                z:units = "" ; //............................................ REQUIRED    - Use UDUNITS.
+                z:axis = "Z" ; //............................................ REQUIRED    - Do not change.
+                z:positive = "" ; //......................................... REQUIRED    - Use "up" or "down".
+                z:valid_min = 0.0f ; //...................................... RECOMMENDED - Replace with correct value.
+                z:valid_max = 0.0f ; //...................................... RECOMMENDED - Replace with correct value.
+                z:_FillValue = 0.0f;//....................................... REQUIRED  if there could be missing values in the data.
+                z:ancillary_variables = "" ; //.............................. RECOMMENDED - List other variables providing information about this variable.
+                z:comment = "" ; //.......................................... RECOMMENDED - Add useful, additional information here.
+        float geophysical_variable_1(timeSeries,time) ;//................................ This is an example of how each and every geophysical variable in the file should be represented. Replace the name of the variable("geophysical_variable_1") with a suitable name. Replace "float" by data type which is appropriate for the variable. 
+                geophysical_variable_1:long_name = "" ; //................... RECOMMENDED - Provide a descriptive, long name for this variable. 
+                geophysical_variable_1:standard_name = "" ; //............... REQUIRED    - If using a CF standard name and a suitable name exists in the CF standard name table.
+                geophysical_variable_1:nodc_name = "" ; //................... RECOMMENDED - From the NODC variables vocabulary, if standard_name does not exist.
+                geophysical_variable_1:units = "" ; //....................... REQUIRED    - Use UDUNITS compatible units.
+                geophysical_variable_1:scale_factor = 0.0f ; //.............. REQUIRED if the data uses a scale_factor other than 1.The data type should be the data type of the variable.
+                geophysical_variable_1:add_offset = 0.0f ; // ............... REQUIRED if the data uses an add_offset other than 0. The data type should be the data type of the variable.
+                geophysical_variable_1:_FillValue = 0.0f ; //................ REQUIRED  if there could be missing values in the data.
+                geophysical_variable_1:valid_min = 0.0f ; //................. RECOMMENDED - Replace with correct value.
+                geophysical_variable_1:valid_max = 0.0f ; //................. RECOMMENDED - Replace with correct value.
+                geophysical_variable_1:coordinates = "time lat lon z" ; //... REQUIRED    - Include the auxiliary coordinate variables and optionally coordinate variables in the list. The order itself does not matter. Also, note that whenever any auxiliary coordinate variable contains a missing value, all other coordinate, auxiliary coordinate and data values corresponding to that element should also contain missing values.
+                geophysical_variable_1:grid_mapping = "crs" ; //............. RECOMMENDED - It is highly recommended that the data provider put the data in a well known geographic coordinate system and provide the details of the coordinate system.
+                geophysical_variable_1:source = "" ; //...................... RECOMMENDED - The method of production of the original data
+                geophysical_variable_1:references = "" ; //.................. RECOMMENDED - Published or web-based references that describe the data or methods used to produce it.
+                geophysical_variable_1: cell_methods = "" ; // .............. RECOMMENDED - Use the coordinate variables to define the cell values (ex., "time: point lon: point lat: point z: point").
+                geophysical_variable_1:ancillary_variables = "instrument_parameter_variable platform_variable boolean_flag_variable enumerated_flag_variable" ; //......... RECOMMENDED - Identify the variable name(s) of the flag(s) and other ancillary variables relevant to this variable.  Use a space-separated list.
+                geophysical_variable_1:platform = "platform_variable" ; //... RECOMMENDED - Refers to name of variable containing information on the platform from which this variable was collected.
+                geophysical_variable_1:instrument = "instrument_variable";//..RECOMMENDED - Refers to name of variable containing information on the instrument from which this variable was collected.
+                geophysical_variable_1:comment = "" ; //..................... RECOMMENDED - Add useful, additional information here.
+        byte boolean_flag_variable(timeSeries,time); //............................. A boolean flag variable, in which each bit of the flag can be a 1 or 0.
+                boolean_flag_variable:standard_name= "" ; //................. RECOMMENDED - This attribute should include the standard name of the variable which this flag contributes plus the modifier: "status_flag" (for example, "sea_water_temperature status_flag"). See CF standard name modifiers.
+                boolean_flag_variable:long_name = "" ; //.................... RECOMMENDED - Provide a descriptive, long name for this variable. 
+                boolean_flag_variable:flag_masks = ; //...................... REQUIRED    - Provide a comma-separated list describing the binary condition of the flags. 
+                boolean_flag_variable:flag_meanings = "" ; //................ REQUIRED    - Provide a comma-separated list of flag values that map to the flag_masks.
+                boolean_flag_variable:references = "" ; //................... RECOMMENDED - Published or web-based references that describe the data or methods used to produce it.
+                boolean_flag_variable:comment = "" ; //...................... RECOMMENDED - Add useful, additional information here.
+        int enumerated_flag_variable(timeSeries,time);  //...................... An enumerated flag variable, in which numeric values refer to defined, exclusive conditions.
+                enumerated_flag_variable:standard_name= "" ; //.............. RECOMMENDED - This attribute should include the standard name of the variable which this flag contributes plus the modifier: "status_flag" (for example, "sea_water_temperature status_flag"). See CF standard name modifiers.
+                enumerated_flag_variable:long_name = "" ; //................. RECOMMENDED - Provide a descriptive, long name for this variable. 
+                enumerated_flag_variable:flag_values = ; //.................. REQUIRED    - Provide a comma-separated list of flag values that map to the flag_meanings.
+                enumerated_flag_variable:flag_meanings = "" ; //............. REQUIRED    - Provide a space-separated list of meanings corresponding to each of the flag_values
+                enumerated_flag_variable:references = "" ; //................ RECOMMENDED - Published or web-based references that describe the data or methods used to produce it.
+                enumerated_flag_variable:comment = "" ; //................... RECOMMENDED - Add useful, additional information here.
+        int platform_variable; //............................................ RECOMMENDED - a container variable storing information about the platform. If more than one, can expand each attribute into a variable. For example, platform_call_sign and platform_nodc_code. See instrument_parameter_variable for an example.
+                platform_variable:long_name = "" ; //........................ RECOMMENDED - Provide a descriptive, long name for this variable. 
+                platform_variable:comment = "" ; //.......................... RECOMMENDED - Add useful, additional information here.
+                platform_variable:call_sign = "" ; //........................ RECOMMENDED - This attribute identifies the call sign of the platform. 	 
+                platform_variable:nodc_code = ""; //......................... RECOMMENDED - This attribute identifies the NODC code of the platform. Look at http://www.nodc.noaa.gov/cgi-bin/OAS/prd/platform to find if NODC codes are available. 	 
+                platform_variable:wmo_code = "";//........................... RECOMMENDED - This attribute identifies the wmo code of the platform. Information on getting WMO codes is available at http://www.wmo.int/pages/prog/amp/mmop/wmo-number-rules.html 	 
+                platform_variable:imo_code  = "";//.......................... RECOMMENDED - This attribute identifies the International Maritime Organization (IMO) number assigned by Lloyd's register. 
+        int instrument_parameter_variable(timeSeries); //.................... RECOMMENDED - an instrument variable storing information about a parameter of the instrument used in the measurement, the dimensions don't have to be specified if the same instrument is used for all the measurements.
+                instrument_parameter_variable:long_name = "" ; //............ RECOMMENDED - Provide a descriptive, long name for this variable. 
+                instrument_parameter_variable:comment = "" ; //.............. RECOMMENDED - Add useful, additional information here.
+        int crs; //.......................................................... RECOMMENDED - A container variable storing information about the grid_mapping. All the attributes within a grid_mapping variable are described in http://cf-pcmdi.llnl.gov/documents/cf-conventions/1.6/cf-conventions.html#appendix-grid-mappings. For all the measurements based on WSG84, the default coordinate system used for GPS measurements, the values shown here should be used.
+                crs:grid_mapping_name = "latitude_longitude"; //............. RECOMMENDED
+                crs:epsg_code = "EPSG:4326" ; //............................. RECOMMENDED - European Petroleum Survey Group code for the grid mapping name.
+                crs:semi_major_axis = 6378137.0 ; //......................... RECOMMENDED
+                crs:inverse_flattening = 298.257223563 ; //.................. RECOMMENDED
+// global attributes:
+        :Conventions = "CF-1.6" ; //......................................... REQUIRED    - Always try to use latest value. (CF)
+        :Metadata_Conventions = "Unidata Dataset Discovery v1.0" ; //........ REQUIRED    - Do not change. (ACDD)
+        :featureType = "timeSeries" ; //..................................... REQUIRED - CF attribute for identifying the featureType.
+        :cdm_data_type = "Station" ; //...................................... REQUIRED (ACDD)
+        :nodc_template_version = "NODC_NetCDF_TimeSeries_Orthogonal_Template_v1.1" ; //....... REQUIRED (NODC)
+        :standard_name_vocabulary = "NetCDF Climate and Forecast (CF) Metadata Convention Standard Name Table "X"" ; //........ REQUIRED    - If using CF standard name attribute for variables. "X" denotes the table number  (ACDD)
+        :title = "" ; //..................................................... RECOMMENDED - Provide a useful title for the data in the file. (ACDD)
+        :summary = "" ; //................................................... RECOMMENDED - Provide a useful summary or abstract for the data in the file. (ACDD)
+        :source = "" ; //.................................................... RECOMMENDED - The input data sources regardless of the method of production method used. (CF)
+        :platform = "platform_variable" ; //................................. RECOMMENDED - Refers to a variable containing information about the platform. May also put this in individual variables. Use NODC or ICES platform table. (NODC)
+        :instrument = "instrument_parameter_variable" ; //................... RECOMMENDED - Refers to a variable containing information about the instrument. May also put this in individual variables. Use NODC or GCMD instrument table. (NODC)
+        :uuid = "" ; //...................................................... RECOMMENDED - Machine readable unique identifier for each file. A new uuid is created whenever the file is changed. (NODC)
+        :sea_name = "" ; //.................................................. RECOMMENDED - The names of the sea in which the data were collected. Use NODC sea names table. (NODC)
+        :id = "" ; //........................................................ RECOMMENDED - Should be a human readable unique identifier for data set. (ACDD)
+        :naming_authority = "" ; //.......................................... RECOMMENDED - Backward URL of institution (for example, gov.noaa.nodc). (ACDD)
+        :time_coverage_start = "" ; //....................................... RECOMMENDED - Use ISO8601 for date and time. (ACDD)
+        :time_coverage_end = "" ; //......................................... RECOMMENDED - Use ISO8601 for date and time.(ACDD)
+        :time_coverage_resolution = "" ; //.................................. RECOMMENDED - For example, "point" or "minute averages". (ACDD)
+        :geospatial_lat_min = 0.0f ; //...................................... RECOMMENDED - Replace with correct value. (ACDD)
+        :geospatial_lat_max = 0.0f ; //...................................... RECOMMENDED - Replace with correct value. (ACDD)
+        :geospatial_lat_units = "degrees_north" ; //......................... RECOMMENDED - Use UDUNITS compatible units. (ACDD)
+        :geospatial_lat_resolution= "" ; //.................................. RECOMMENDED - For example, "point" or "10 degree grid". (ACDD)
+        :geospatial_lon_min = 0.0f ; //...................................... RECOMMENDED - Replace with correct value. (ACDD)
+        :geospatial_lon_max = 0.0f ; //...................................... RECOMMENDED - Replace with correct value. (ACDD)
+        :geospatial_lon_units = "degrees_east"; //........................... RECOMMENDED - Use UDUNITS compatible units. (ACDD)
+        :geospatial_lon_resolution= "" ; //.................................. RECOMMENDED - For example, "point" or "10 degree grid". (ACDD)
+        :geospatial_vertical_min = 0.0f ; //................................. RECOMMENDED - Replace with correct value. (ACDD)
+        :geospatial_vertical_max = 0.0f ; //................................. RECOMMENDED - Replace with correct value. (ACDD)
+        :geospatial_vertical_units = "" ; //................................. RECOMMENDED - Use UDUNITS compatible units. (ACDD)
+        :geospatial_vertical_resolution = "" ; //............................ RECOMMENDED - For example, "point" or "1 meter binned". (ACDD)
+        :geospatial_vertical_positive = "" ; //.............................. RECOMMENDED - Use "up" or "down". (ACDD)
+        :institution = "" ; //............................................... RECOMMENDED - Institution of the person or group that collected the data.  An institution attribute can be used for each variable if variables come from more than one institution. (ACDD)
+        :creator_name = "" ; //.............................................. RECOMMENDED - Name of the person who collected the data. (ACDD)
+        :creator_url = "" ; //............................................... RECOMMENDED - URL for person who collected the data. (ACDD)
+        :creator_email = "" ; //............................................. RECOMMENDED - Email address for person who collected the data. (ACDD)
+        :project = "" ; //................................................... RECOMMENDED - Project the data was collected under. (ACDD)
+        :processing_level = "" ; //.......................................... RECOMMENDED - Provide a description of the processing or quality control level of the data. (ACDD)
+        :references = "" ; //................................................ RECOMMENDED - Published or web-based references that describe the data or methods used to produce it. (CF)
+        :keywords_vocabulary = "" ; //....................................... RECOMMENDED - Identifies the controlled keyword vocabulary used to specify the values within the attribute "keywords". e.g. NASA/GCMD Earth Science Keywords (ACDD)
+        :keywords = "" ; //.................................................. RECOMMENDED - A comma separated list of keywords coming from the keywords_vocabulary. (ACDD)
+        :acknowledgment = "" ; //............................................ RECOMMENDED - Text to use to properly acknowledge use of the data. (ACDD)
+        :comment = "" ; //................................................... RECOMMENDED - Provide useful additional information here. (ACDD and CF)
+        :contributor_name = "" ; //.......................................... RECOMMENDED - A comma separated list of contributors to this data set. (ACDD)
+        :contributor_role = "" ; //.......................................... RECOMMENDED - A comma separated list of their roles. (ACDD)
+        :date_created = "" ; //.............................................. RECOMMENDED - Creation date of the netCDF.  Use ISO8601 for date and time. (ACDD)
+        :date_modified = "" ; //............................................. RECOMMENDED - Modification date of the netCDF.  Use ISO8601 for date and time. (ACDD)
+        :publisher_name = "" ; //............................................ RECOMMENDED - Publisher of the data. (ACDD)
+        :publisher_email = "" ; //........................................... RECOMMENDED - Email address of the publisher of the data. (ACDD)
+        :publisher_url = "" ; //............................................. RECOMMENDED - A URL for the publisher of the data. (ACDD)
+        :history = "" ; //................................................... RECOMMENDED - Record changes made to the netCDF. (ACDD)
+        :license = "" ; //................................................... RECOMMENDED - Describe the restrictions to data access and distribution. (ACDD)
+        :metadata_link = "" ; //............................................. RECOMMENDED - This attribute provides a link to a complete metadata record for this data set or the collection that contains this data set. (ACDD)    
+}
